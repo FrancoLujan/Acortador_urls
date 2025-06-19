@@ -1,10 +1,12 @@
 package services.implementaciones;
 
 import entities.Usuario;
+import org.springframework.stereotype.Service;
 import services.interfaces.UsuarioServicio;
 
 import java.util.List;
 
+@Service
 public class UsuarioServicioImpl extends ServicioImpl<Usuario, Integer> implements UsuarioServicio<Usuario, Integer> {
     @Override
     public void add(Usuario usuario) {
