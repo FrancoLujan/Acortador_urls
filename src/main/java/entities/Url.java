@@ -14,10 +14,6 @@ public class Url {
     private int id_url;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Usuario usuario;
-
     @Column(name = "url_complete")
     private URL url_completa;
 
