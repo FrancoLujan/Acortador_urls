@@ -9,7 +9,7 @@ public interface Servicio<T, K> {
 
     void update(T t);
 
-    void delete(T t);
+    void delete(K t);
 
     List<T> findAll();
     T findById(K id);

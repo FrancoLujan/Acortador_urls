@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,9 +19,9 @@ public class Url {
     private URL url_completa;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_alias")
     private Url_alias url_alias;
-
 
 
 }
