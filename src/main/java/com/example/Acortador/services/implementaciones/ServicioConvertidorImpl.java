@@ -1,13 +1,11 @@
-package services.implementaciones;
+package com.example.Acortador.services.implementaciones;
 
-import DTOS.UrlDTO;
-import entities.Url;
+import com.example.Acortador.DTOS.UrlDTO;
+import com.example.Acortador.entities.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import services.interfaces.Url_aliasServicio;
 
 import java.net.URL;
-import java.security.PublicKey;
 
 @Service
 public class ServicioConvertidorImpl {
@@ -26,7 +24,7 @@ public class ServicioConvertidorImpl {
         url.setUrl_completa(urlU);
         urlServicio.agregar(convertirAdto(url));
 
-        urlAliasServicio.
+
     }
 
     public UrlDTO convertirAdto(Url url) {

@@ -1,4 +1,4 @@
-package entities;
+package com.example.Acortador.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

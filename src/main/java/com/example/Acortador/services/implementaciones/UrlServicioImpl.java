@@ -1,17 +1,13 @@
-package services.implementaciones;
+package com.example.Acortador.services.implementaciones;
 
-import DTOS.UrlDTO;
-import entities.Url;
+import com.example.Acortador.DTOS.UrlDTO;
+import com.example.Acortador.entities.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.UrlRepository;
-import services.interfaces.UrlServicio;
+import com.example.Acortador.repositories.UrlRepository;
+import com.example.Acortador.services.interfaces.UrlServicio;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlServicio<Url, Integer> {

@@ -1,4 +1,4 @@
-package services.interfaces;
+package com.example.Acortador.services.interfaces;
 
 import java.util.List;
 

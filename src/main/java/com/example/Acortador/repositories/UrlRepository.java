@@ -1,6 +1,6 @@
-package repositories;
+package com.example.Acortador.repositories;
 
-import entities.Url;
+import com.example.Acortador.entities.Url;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

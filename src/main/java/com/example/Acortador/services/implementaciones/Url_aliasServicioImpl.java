@@ -1,13 +1,11 @@
-package services.implementaciones;
+package com.example.Acortador.services.implementaciones;
 
-import DTOS.UrlDTO;
-import DTOS.Url_aliasDTO;
-import entities.Url_alias;
+import com.example.Acortador.DTOS.Url_aliasDTO;
+import com.example.Acortador.entities.Url_alias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.UrlRepository;
-import repositories.Url_aliasRepository;
-import services.interfaces.Url_aliasServicio;
+import com.example.Acortador.repositories.Url_aliasRepository;
+import com.example.Acortador.services.interfaces.Url_aliasServicio;
 
 import java.util.List;
 
@@ -87,11 +85,5 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
 
     public void modificarCantidad(Url_alias url) {
         url.setCantidad_uso(url.getCantidad_uso() + 1);
-
-
     }
-
-
-
-
 }

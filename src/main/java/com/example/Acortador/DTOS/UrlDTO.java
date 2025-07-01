@@ -1,4 +1,4 @@
-package DTOS;
+package com.example.Acortador.DTOS;
 
 import lombok.Data;
 
