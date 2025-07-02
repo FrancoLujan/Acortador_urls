@@ -1,27 +1,33 @@
 package com.example.Acortador.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.net.URL;
+import java.util.List;
 
 @Entity
 @Table(name = "URLS")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Url {
     @Id
     @Column(name = "id_url")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_url;
 
 
     @Column(name = "url_complete")
     private URL url_completa;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "id_alias")
-    private Url_alias url_alias;
+    @OneToMany(mappedBy = "url", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Url_alias> url_alias;
 
 
 }

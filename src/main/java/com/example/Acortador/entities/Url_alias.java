@@ -17,13 +17,12 @@ import java.util.List;
 public class Url_alias {
     @Id
     @Column(name="id_alias")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "id_url")
-    @OneToMany(mappedBy = "url_alias")
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JsonManagedReference
-    private List<Url> urls;
+    @ManyToOne
+    @JoinColumn(name = "id_url", referencedColumnName = "id_url")
+    private Url url;
 
     @Column(name = "alias")
     private String alias;
