@@ -9,4 +9,6 @@ public class Url_aliasDTO {
 
     private int cantidad_uso;
 
+    private int urlId;
+
 }
