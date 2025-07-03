@@ -3,7 +3,7 @@ package com.example.Acortador.services.implementaciones;
 import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.entities.Url;
 import com.example.Acortador.entities.Url_alias;
-import com.example.Acortador.gestor.Gestor;
+import com.example.Acortador.gestor.GestorRepositorios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.Url_aliasServicio;
@@ -14,39 +14,39 @@ import java.util.List;
 @Service
 public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> implements Url_aliasServicio<Url_alias, Integer> {
 
-    private final Gestor gestor;
+    private final GestorRepositorios gestorRepositorios;
 
     @Autowired
-    public Url_aliasServicioImpl(Gestor gestor) {
-        this.gestor = gestor;
+    public Url_aliasServicioImpl(GestorRepositorios gestorRepositorios) {
+        this.gestorRepositorios = gestorRepositorios;
     }
 
 
     @Override
     public void add(Url_alias urlAlias) {
-        gestor.getUrlAliasRepository().save(urlAlias);
+        gestorRepositorios.getUrlAliasRepository().save(urlAlias);
     }
 
     @Override
     public void update(Url_alias urlAlias) {
-        gestor.getUrlAliasRepository().save(urlAlias);
+        gestorRepositorios.getUrlAliasRepository().save(urlAlias);
     }
 
     @Override
     public void delete(Integer id) {
-        gestor.getUrlAliasRepository().deleteById(id);
+        gestorRepositorios.getUrlAliasRepository().deleteById(id);
     }
 
     @Override
     public List<Url_alias> findAll() {
 
-        return gestor.getUrlAliasRepository().findAll();
+        return gestorRepositorios.getUrlAliasRepository().findAll();
     }
 
     @Override
     public Url_alias findById(Integer id) {
 
-        return gestor.getUrlAliasRepository().findById(id).get();
+        return gestorRepositorios.getUrlAliasRepository().findById(id).get();
     }
 
 
@@ -54,9 +54,9 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
         Url_alias urlAlias = new Url_alias();
         urlAlias.setAlias(urlAliasDTO.getAlias());
         Url url = new Url();
-        url = gestor.getUrlRepository().findById(urlAlias.getUrl().getId_url()).get();
+        url = gestorRepositorios.getUrlRepository().findById(urlAlias.getUrl().getId_url()).get();
         urlAlias.setUrl(url);
-        gestor.getUrlAliasRepository().save(urlAlias);
+        gestorRepositorios.getUrlAliasRepository().save(urlAlias);
     }
 
     public void eliminar(int id) {
@@ -64,13 +64,13 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
     }
 
     public List<Url_aliasDTO> listarTodos() {
-        return findAll().stream().map(gestor::getUrlAliasDTO).toList();
+        return findAll().stream().map(gestorRepositorios::getUrlAliasDTO).toList();
     }
 
     public List<Url_aliasDTO> buscarPorAlias(String alias) {
         char[] cadena = alias.toCharArray();
 
-        List<Url_alias> urls = gestor.getUrlAliasRepository().findAll().stream()
+        List<Url_alias> urls = gestorRepositorios.getUrlAliasRepository().findAll().stream()
                 .map(e -> {
                     int iguales = 0;
                     List<Url_alias> coincidencias = new ArrayList<>(List.of());
@@ -88,7 +88,7 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
 
                     return null;
                 }).toList();
-        return urls.stream().map(gestor::getUrlAliasDTO).toList();
+        return urls.stream().map(gestorRepositorios::getUrlAliasDTO).toList();
     }
 
     public void modificarAlias(Url_aliasDTO urlAliasDTO, int id) {

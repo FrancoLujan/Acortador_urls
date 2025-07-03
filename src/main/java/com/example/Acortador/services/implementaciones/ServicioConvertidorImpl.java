@@ -24,24 +24,12 @@ public class ServicioConvertidorImpl {
     //GUARDA TANTO EL URL COMO EL ALIAS
     // USAR EN METODO POST
     public void acortarUrl(URL urlU, String alias) {
-        Url url = new Url();
-        url.setUrl_completa(urlU);
-        urlServicio.agregar(convertirAdto(url));
+
 
     }
 
 
-    private UrlDTO convertirAdto(Url url) {
-        UrlDTO urlDTO = new UrlDTO();
-        urlDTO.setUrl_completa(url.getUrl_completa());
-        return urlDTO;
-    }
-    private Url_aliasDTO convertirAliasdto(String alias, int idUrl) {
-        Url_aliasDTO urlAliasDTO = new Url_aliasDTO();
-        urlAliasDTO.setAlias(alias);
-        urlAliasDTO.setUrlId(idUrl);
-        return urlAliasDTO;
-    }
+
 
 
 }

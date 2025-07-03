@@ -3,7 +3,7 @@ package com.example.Acortador.services.implementaciones;
 import com.example.Acortador.DTOS.Detalles.UrlDTODetalle;
 import com.example.Acortador.DTOS.UrlDTO;
 import com.example.Acortador.entities.Url;
-import com.example.Acortador.gestor.Gestor;
+import com.example.Acortador.gestor.GestorRepositorios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.UrlServicio;
@@ -13,46 +13,46 @@ import java.util.List;
 @Service
 public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlServicio<Url, Integer> {
 
-    private final Gestor gestor;
+    private final GestorRepositorios gestorRepositorios;
 
     @Autowired
-    public UrlServicioImpl(Gestor gestor) {
-        this.gestor = gestor;
+    public UrlServicioImpl(GestorRepositorios gestorRepositorios) {
+        this.gestorRepositorios = gestorRepositorios;
     }
 
     @Override
     public void add(Url url) {
-        gestor.getUrlRepository().save(url);
+        gestorRepositorios.getUrlRepository().save(url);
 
     }
 
     @Override
     public void update(Url url) {
-        gestor.getUrlRepository().save(url);
+        gestorRepositorios.getUrlRepository().save(url);
 
     }
 
     @Override
     public void delete(Integer id) {
-        gestor.getUrlRepository().deleteById(id);
+        gestorRepositorios.getUrlRepository().deleteById(id);
     }
 
     @Override
     public List<Url> findAll() {
-        return gestor.getUrlRepository().findAll();
+        return gestorRepositorios.getUrlRepository().findAll();
     }
 
     @Override
     public Url findById(Integer id) {
 
-        return gestor.getUrlRepository().findById(id).get();
+        return gestorRepositorios.getUrlRepository().findById(id).get();
     }
 
 
     public void agregar(UrlDTO urlDTO) {
         Url url = new Url();
         url.setUrl_completa(urlDTO.getUrl_completa());
-        url.setUrl_alias(gestor.getUrlAliasRepository().findAll());
+        url.setUrl_alias(gestorRepositorios.getUrlAliasRepository().findAll());
 
 
     }
@@ -70,12 +70,12 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
     public UrlDTODetalle buscar(int id) {
         Url url = findById(id);
 
-        return gestor.getDetalleUrlDTO(url);
+        return gestorRepositorios.getDetalleUrlDTO(url);
 
     }
     public List<UrlDTODetalle> listaUrls() {
        List<Url> urls = findAll();
-       return urls.stream().map(gestor::getDetalleUrlDTO).toList();
+       return urls.stream().map(gestorRepositorios::getDetalleUrlDTO).toList();
     }
 
 

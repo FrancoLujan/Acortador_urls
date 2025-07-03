@@ -18,12 +18,12 @@ import java.util.List;
 @Component
 @Data
 
-public class Gestor {
+public class GestorRepositorios {
     final private UrlRepository urlRepository;
     final private Url_aliasRepository urlAliasRepository;
 
     @Autowired
-    public Gestor(UrlRepository urlRepository, Url_aliasRepository urlAliasRepository) {
+    public GestorRepositorios(UrlRepository urlRepository, Url_aliasRepository urlAliasRepository) {
         this.urlRepository = urlRepository;
         this.urlAliasRepository = urlAliasRepository;
     }
