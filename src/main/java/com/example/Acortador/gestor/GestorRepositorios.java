@@ -30,7 +30,7 @@ public class GestorRepositorios {
         this.urlAliasRepository = urlAliasRepository;
     }
 
-
+    // lista UrlDTODetalle y el la lista de areas de cada url
     public UrlDTODetalle getDetalleUrlDTO(Url url) {
         UrlDTODetalle urlDTO = new UrlDTODetalle();
         UrlDTO dto = new UrlDTO();
@@ -38,7 +38,9 @@ public class GestorRepositorios {
 
         urlDTO.setUrl(dto);
         List<Url_alias> url_alias = urlAliasRepository.findAll();
-        List<Url_aliasDTO> url_aliasDTO = url_alias.stream().map(this::getUrlAliasDTO).toList();
+        List<Url_aliasDTO> url_aliasDTO = url_alias.stream()
+                .filter(x -> x.getUrl().getId_url() == url.getId_url())
+                .map(this::getUrlAliasDTO).toList();
         urlDTO.setUrlAliasDtos(url_aliasDTO);
 
         return urlDTO;

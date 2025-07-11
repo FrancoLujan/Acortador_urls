@@ -1,6 +1,7 @@
 package com.example.Acortador.controllers;
 
 import com.example.Acortador.DTOS.AcortarDTO;
+import com.example.Acortador.DTOS.Detalles.UrlDTODetalle;
 import com.example.Acortador.DTOS.UrlDTO;
 import com.example.Acortador.entities.Url;
 import com.example.Acortador.services.implementaciones.ServicioConvertidorImpl;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-@RequestMapping("/api/url")
+@RequestMapping("/api/acortador")
 @RestController
 public class UrlController {
 
@@ -49,5 +50,15 @@ public class UrlController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<UrlDTODetalle>> getAllUrls() {
+        try {
+            List<UrlDTODetalle> urls = servicioConvertidor.detallesUrlDTO();
+            return new ResponseEntity<>(urls, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

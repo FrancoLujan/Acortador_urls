@@ -1,5 +1,6 @@
 package com.example.Acortador.services.implementaciones;
 
+import com.example.Acortador.DTOS.Detalles.UrlDTODetalle;
 import com.example.Acortador.DTOS.UrlDTO;
 import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.entities.Url;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class ServicioConvertidorImpl {
@@ -34,6 +36,12 @@ public class ServicioConvertidorImpl {
         url_aliasDTO.setUrlId(id);
         gestor.getAliasServicio().agregar(url_aliasDTO,gestor.getUrlServicio().findById(id));
     }
+
+
+    public List<UrlDTODetalle> detallesUrlDTO() {
+        return gestor.getUrlServicio().listaUrls();
+    }
+
 
 
 }
