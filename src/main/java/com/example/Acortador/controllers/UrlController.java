@@ -32,6 +32,11 @@ public class UrlController {
     EL ERROR SE SOLUCIONO ERA UN ERROR EN LOS TOSTRING, LA SOLUCION FUE EL DECORADOR @ToString(exclude = )
     es cada entidad exclui la referencia a la otra entidad en decir en Url exclui Url_alias y viceversa para evitar
     recursividad en ToString todo esto por usar lombok(importante en este caso)
+
+
+    Cuidado ojo: el error era en los System.out.print(url) (si se quitaba se solucionaba)
+     por eso surgia el error sin embargo se dejara la correccion
+    con decorador para evitar ese error a futuro...
      */
 
     @PostMapping("/acortar")
