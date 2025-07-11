@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.Url_aliasServicio;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,11 +51,13 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
     }
 
 
-    public void agregar(Url_aliasDTO urlAliasDTO) {
+    // recibe la Url para mas precicion
+    public void agregar(Url_aliasDTO urlAliasDTO, Url url) {
         Url_alias urlAlias = new Url_alias();
         urlAlias.setAlias(urlAliasDTO.getAlias());
-        Url url = new Url();
-        url = gestorRepositorios.getUrlRepository().findById(urlAlias.getUrl().getId_url()).get();
+
+
+        System.out.println(url);
         urlAlias.setUrl(url);
         gestorRepositorios.getUrlAliasRepository().save(urlAlias);
     }

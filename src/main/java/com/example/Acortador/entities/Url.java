@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.net.URL;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "url_alias")
 public class Url {
     @Id
     @Column(name = "id_url")
@@ -22,7 +24,7 @@ public class Url {
     private int id_url;
 
 
-    @Column(name = "url_complete")
+    @Column(name = "url_completa")
     private URL url_completa;
 
     @OneToMany(mappedBy = "url", cascade = CascadeType.ALL)

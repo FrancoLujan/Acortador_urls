@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.UrlServicio;
 
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -53,6 +54,7 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
         Url url = new Url();
         url.setUrl_completa(urlDTO.getUrl_completa());
         url.setUrl_alias(gestorRepositorios.getUrlAliasRepository().findAll());
+        add(url);
 
 
     }
@@ -73,11 +75,21 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
         return gestorRepositorios.getDetalleUrlDTO(url);
 
     }
+
     public List<UrlDTODetalle> listaUrls() {
-       List<Url> urls = findAll();
-       return urls.stream().map(gestorRepositorios::getDetalleUrlDTO).toList();
+        List<Url> urls = findAll();
+        return urls.stream().map(gestorRepositorios::getDetalleUrlDTO).toList();
     }
 
+    public int buscarId(URL url_completa) {
+        return findAll().stream().filter(e -> e.getUrl_completa().equals(url_completa)).findFirst().get().getId_url();
+
+    }
+
+    public int buscarIdUltimo(){
+        List<Url> urls = findAll();
+       return urls.getLast().getId_url();
+    }
 
 
 }

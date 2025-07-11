@@ -11,6 +11,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 // EL GESTOR MANEJA LOS REPOSITORIOS Y LOS DTO PARA QUE QUEDE LIMPIO LOS SERVICIOS
@@ -27,7 +29,6 @@ public class GestorRepositorios {
         this.urlRepository = urlRepository;
         this.urlAliasRepository = urlAliasRepository;
     }
-
 
 
     public UrlDTODetalle getDetalleUrlDTO(Url url) {

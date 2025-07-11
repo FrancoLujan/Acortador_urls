@@ -3,6 +3,9 @@ package com.example.Acortador.services.implementaciones;
 import com.example.Acortador.DTOS.UrlDTO;
 import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.entities.Url;
+import com.example.Acortador.gestor.GestorRepositorios;
+import com.example.Acortador.gestor.GestorServicios;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,25 +14,26 @@ import java.net.URL;
 
 @Service
 public class ServicioConvertidorImpl {
-    private UrlServicioImpl urlServicio;
-    private Url_aliasServicioImpl urlAliasServicio;
+    final private GestorServicios gestor;
 
-    @Autowired
-    public ServicioConvertidorImpl(UrlServicioImpl urlServicio, Url_aliasServicioImpl urlAliasServicio) {
-        this.urlServicio = urlServicio;
-        this.urlAliasServicio = urlAliasServicio;
+
+    public ServicioConvertidorImpl(GestorServicios gestor) {
+        this.gestor = gestor;
+
     }
-
 
     //GUARDA TANTO EL URL COMO EL ALIAS
     // USAR EN METODO POST
-    public void acortarUrl(URL urlU, String alias) {
+    public void acortarUrl(UrlDTO urlDTO, String alias) {
 
-
+        Url_aliasDTO url_aliasDTO = new Url_aliasDTO();
+        url_aliasDTO.setAlias(alias);
+        gestor.getUrlServicio().agregar(urlDTO); // agrega pero no asocia el alias....
+        int id = gestor.getUrlServicio().buscarIdUltimo();
+        System.out.println(id);
+        url_aliasDTO.setUrlId(id);
+        gestor.getAliasServicio().agregar(url_aliasDTO,gestor.getUrlServicio().findById(id));
     }
-
-
-
 
 
 }
