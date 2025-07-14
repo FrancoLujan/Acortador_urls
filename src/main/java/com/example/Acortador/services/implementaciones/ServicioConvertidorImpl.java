@@ -32,7 +32,6 @@ public class ServicioConvertidorImpl {
         url_aliasDTO.setAlias(alias);
         gestor.getUrlServicio().agregar(urlDTO); // agrega pero no asocia el alias....
         int id = gestor.getUrlServicio().buscarIdUltimo();
-        System.out.println(id);
         url_aliasDTO.setUrlId(id);
         gestor.getAliasServicio().agregar(url_aliasDTO,gestor.getUrlServicio().findById(id));
     }

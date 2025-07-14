@@ -1,5 +1,6 @@
 package com.example.Acortador.services.implementaciones;
 
+import com.example.Acortador.DTOS.AliasDTO;
 import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.entities.Url;
 import com.example.Acortador.entities.Url_alias;
@@ -60,6 +61,15 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
         System.out.println(url);
         urlAlias.setUrl(url);
         gestorRepositorios.getUrlAliasRepository().save(urlAlias);
+    }
+
+    public void agregar(AliasDTO aliasDTO, int idUrl) {
+        Url_alias urlAlias = new Url_alias();
+        urlAlias.setAlias(aliasDTO.getAlias());
+        urlAlias.setUrl(gestorRepositorios.getUrlRepository().findById(idUrl).orElse(null));
+        gestorRepositorios.getUrlAliasRepository().save(urlAlias);
+
+
     }
 
     public void eliminar(int id) {
