@@ -47,14 +47,4 @@ public class AcortadorController {
         }
 
     }
-
-    @GetMapping("/todos")
-    public ResponseEntity<List<UrlDTODetalle>> getAllUrls() {
-        try {
-            List<UrlDTODetalle> urls = servicioConvertidor.detallesUrlDTO();
-            return new ResponseEntity<>(urls, HttpStatus.OK);
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
 }

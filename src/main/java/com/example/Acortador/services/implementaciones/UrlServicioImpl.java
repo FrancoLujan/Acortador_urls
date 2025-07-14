@@ -45,8 +45,7 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
 
     @Override
     public Url findById(Integer id) {
-
-        return gestorRepositorios.getUrlRepository().findById(id).get();
+        return gestorRepositorios.getUrlRepository().findById(id).orElseThrow();
     }
 
 
@@ -59,9 +58,9 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
 
     }
 
-    public void actualizar(UrlDTO urlDTO, int id) {
+    public void actualizar(UrlDTO urlCompleta, int id) {
         Url url = findById(id);
-        url.setUrl_completa(urlDTO.getUrl_completa());
+        url.setUrl_completa(urlCompleta.getUrl_completa());
         update(url);
     }
 
@@ -81,9 +80,9 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
         return urls.stream().map(gestorRepositorios::getDetalleUrlDTO).toList();
     }
 
-    public int buscarIdUltimo(){
+    public int buscarIdUltimo() {
         List<Url> urls = findAll();
-       return urls.getLast().getId_url();
+        return urls.getLast().getId_url();
     }
 
 
