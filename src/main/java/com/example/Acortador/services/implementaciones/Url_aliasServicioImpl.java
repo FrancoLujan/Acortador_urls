@@ -5,6 +5,9 @@ import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.entities.Url;
 import com.example.Acortador.entities.Url_alias;
 import com.example.Acortador.gestor.GestorRepositorios;
+import jakarta.transaction.Transactional;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.Url_aliasServicio;
@@ -74,6 +77,25 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
 
     public void eliminar(int id) {
         delete(id);
+    }
+
+    // no elimina nada por alguna extraña razon
+    public void eliminarAliasAsociados(int idUrl) {
+        List<Url_alias> aliaseAsociados = gestorRepositorios.getUrlRepository().findById(idUrl).get().getUrl_alias();
+        System.out.println(aliaseAsociados);
+        aliaseAsociados.forEach(alias -> eliminar(alias.getId()));
+    }
+
+    public void eliminarAlias(String alias) {
+       int eliminadoID = idAlias(alias);
+       eliminar(eliminadoID);
+    }
+
+    private int idAlias(String alias) {
+        String cadena = alias.toLowerCase().trim();
+        // cadena pasada a minusculas y quitado los espacios del inicio o fin
+       return findAll().stream().filter(e -> e.getAlias().toLowerCase().trim().equals(cadena))
+               .findFirst().get().getId();
     }
 
     public List<Url_aliasDTO> listarTodos() {
