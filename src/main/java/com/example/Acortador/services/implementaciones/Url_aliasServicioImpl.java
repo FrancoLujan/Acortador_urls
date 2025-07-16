@@ -118,17 +118,18 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
     }
 
 
-    public void modificarAlias( String aliasNuevo, String aliasViejo) {
-        Url_alias urlAlias = findById(idAlias(aliasViejo));
-
-        urlAlias.setAlias(aliasNuevo);
+    public void modificarAlias(AliasDTO aliasDTO) {
+        Url_alias urlAlias = findById(aliasDTO.getUrlAsociada());
+        urlAlias.setAlias(aliasDTO.getAlias());
         update(urlAlias);
+
 
 
     }
 
-    public void modificarCantidad(Url_alias url) {
-        url.setCantidad_uso(url.getCantidad_uso() + 1);
+    public void usoAlias(int idAlias) {
+        Url_alias urlAlias = findById(idAlias);
+        urlAlias.setCantidad_uso(urlAlias.getCantidad_uso() + 1);
     }
 
 

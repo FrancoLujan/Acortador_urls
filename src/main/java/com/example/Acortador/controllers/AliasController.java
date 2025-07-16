@@ -59,14 +59,23 @@ public class AliasController {
         }
     }
 
-    @PatchMapping("/modificar/{aliasViejo}/{aliasNuevo}")
-    public ResponseEntity<ResponseEntity<HttpStatus>> modificar(@PathVariable String aliasViejo,
-                                                                @PathVariable String aliasNuevo) {
+    @PatchMapping("/modificar")
+    public ResponseEntity<ResponseEntity<HttpStatus>> modificar(AliasDTO alias) {
         try{
-            servicios.getAliasServicio().modificarAlias(aliasNuevo, aliasViejo);
+            servicios.getAliasServicio().modificarAlias(alias);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @PatchMapping("/uso/{idAlias}")
+    public ResponseEntity<ResponseEntity<HttpStatus>> usoAlias(@PathVariable int idAlias) {
+        try{
+            servicios.getAliasServicio().usoAlias(idAlias);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
