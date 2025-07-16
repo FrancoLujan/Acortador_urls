@@ -80,22 +80,24 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
     }
 
     // no elimina nada por alguna extraña razon
+    // EL error fue hecho por la cascade de la url pero fue solucionado
     public void eliminarAliasAsociados(int idUrl) {
+
         List<Url_alias> aliaseAsociados = gestorRepositorios.getUrlRepository().findById(idUrl).get().getUrl_alias();
-        System.out.println(aliaseAsociados);
-        aliaseAsociados.forEach(alias -> eliminar(alias.getId()));
+        aliaseAsociados.forEach(urlAlias -> {eliminar(urlAlias.getId());});
+
     }
 
     public void eliminarAlias(String alias) {
-       int eliminadoID = idAlias(alias);
-       eliminar(eliminadoID);
+        int eliminadoID = idAlias(alias);
+        eliminar(eliminadoID);
     }
 
     private int idAlias(String alias) {
         String cadena = alias.toLowerCase().trim();
         // cadena pasada a minusculas y quitado los espacios del inicio o fin
-       return findAll().stream().filter(e -> e.getAlias().toLowerCase().trim().equals(cadena))
-               .findFirst().get().getId();
+        return findAll().stream().filter(e -> e.getAlias().toLowerCase().trim().equals(cadena))
+                .findFirst().get().getId();
     }
 
     public List<Url_aliasDTO> listarTodos() {

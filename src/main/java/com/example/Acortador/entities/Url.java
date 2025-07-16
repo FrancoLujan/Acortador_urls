@@ -27,7 +27,10 @@ public class Url {
     @Column(name = "url_completa")
     private URL url_completa;
 
-    @OneToMany(mappedBy = "url", cascade = CascadeType.ALL)
+    /*
+    Cascade.REMOVE (propaga la eliminacin de la entidad principal cuando esta es eliminada )
+     */
+    @OneToMany(mappedBy = "url", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Url_alias> url_alias;
 
