@@ -106,12 +106,6 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
         eliminar(idAlias);
     }
 
-    private int idAlias(String alias) {
-        String cadena = alias.toLowerCase().trim();
-        // cadena pasada a minusculas y quitado los espacios del inicio o fin
-        return findAll().stream().filter(e -> e.getAlias().toLowerCase().trim().equals(cadena))
-                .findFirst().get().getId();
-    }
 
     public List<Url_aliasDTO> listarTodos() {
         return findAll().stream().map(gestorRepositorios::getUrlAliasDTO).toList();

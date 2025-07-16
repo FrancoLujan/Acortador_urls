@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/alias")
 public class AliasController {
@@ -75,6 +77,17 @@ public class AliasController {
             servicios.getAliasServicio().usoAlias(idAlias);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<Url_aliasDTO>> todos(){
+        try {
+           List<Url_aliasDTO> alias =  servicios.getAliasServicio().listarTodos();
+            return new ResponseEntity<>(alias, HttpStatus.OK);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

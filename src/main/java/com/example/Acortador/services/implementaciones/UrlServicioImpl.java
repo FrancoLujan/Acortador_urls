@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Acortador.services.interfaces.UrlServicio;
 
-import java.net.URL;
+
 import java.util.List;
 
 @Service
@@ -55,7 +55,6 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
         url.setUrl_alias(gestorRepositorios.getUrlAliasRepository().findAll());
         add(url);
 
-
     }
 
     public void actualizar(UrlDTO urlCompleta, int id) {
@@ -68,12 +67,7 @@ public class UrlServicioImpl extends ServicioImpl<Url, Integer> implements UrlSe
         delete(id);
     }
 
-    public UrlDTODetalle buscar(int id) {
-        Url url = findById(id);
 
-        return gestorRepositorios.getDetalleUrlDTO(url);
-
-    }
 
     public List<UrlDTODetalle> listaUrls() {
         List<Url> urls = findAll();
