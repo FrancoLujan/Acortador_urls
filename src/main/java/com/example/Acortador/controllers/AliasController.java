@@ -3,6 +3,7 @@ package com.example.Acortador.controllers;
 import com.example.Acortador.DTOS.AliasDTO;
 import com.example.Acortador.DTOS.Url_aliasDTO;
 import com.example.Acortador.gestor.GestorServicios;
+import jdk.jfr.Description;
 import org.hibernate.sql.Alias;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,14 +38,35 @@ public class AliasController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-    //elimina segun un alias
-    @DeleteMapping("/eliminar/{alias}")
-    public ResponseEntity<ResponseEntity<HttpStatus>> eliminar( @PathVariable String alias) {
+    //elimina segun un alias de una url asociada
+    @DeleteMapping("/eliminar")
+    public ResponseEntity<ResponseEntity<HttpStatus>> eliminar( @RequestBody AliasDTO alias) {
         try{
-            servicios.getAliasServicio().eliminarAlias(alias);
+            servicios.getAliasServicio().eliminarAliasAsociado(alias);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/eliminar/{idAlias}")
+    public ResponseEntity<ResponseEntity<HttpStatus>> eliminar(@PathVariable int idAlias) {
+        try {
+            servicios.getAliasServicio().eliminarAliasID(idAlias);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping("/modificar/{aliasViejo}/{aliasNuevo}")
+    public ResponseEntity<ResponseEntity<HttpStatus>> modificar(@PathVariable String aliasViejo,
+                                                                @PathVariable String aliasNuevo) {
+        try{
+            servicios.getAliasServicio().modificarAlias(aliasNuevo, aliasViejo);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
     }
 }

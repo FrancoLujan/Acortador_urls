@@ -80,7 +80,7 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
     }
 
     // no elimina nada por alguna extraña razon
-    // EL error fue hecho por la cascade de la url pero fue solucionado
+    // EL error fue hecho por la cascade de la url pero fue solucionado..
     public void eliminarAliasAsociados(int idUrl) {
 
         List<Url_alias> aliaseAsociados = gestorRepositorios.getUrlRepository().findById(idUrl).get().getUrl_alias();
@@ -88,9 +88,22 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
 
     }
 
-    public void eliminarAlias(String alias) {
-        int eliminadoID = idAlias(alias);
-        eliminar(eliminadoID);
+
+    // eliminar alias asociado va eliminar el alias asociado por el alias sin embargo si hay repetidos elimina los repetidos
+    public void eliminarAliasAsociado(AliasDTO aliasDTO) {
+        List<Url_alias> aliaseAsociados = gestorRepositorios.getUrlRepository()
+                .findById(aliasDTO.getUrlAsociada()).get().getUrl_alias();
+        aliaseAsociados.forEach(e -> {
+            if (e.getAlias().equals(aliasDTO.getAlias())) {
+                eliminar(e.getId());
+            }
+        });
+
+    }
+
+    // para una eliminacion precisa usare el el id del alias para evitar errores
+    public void eliminarAliasID(int idAlias){
+        eliminar(idAlias);
     }
 
     private int idAlias(String alias) {
@@ -104,33 +117,11 @@ public class Url_aliasServicioImpl extends ServicioImpl<Url_alias, Integer> impl
         return findAll().stream().map(gestorRepositorios::getUrlAliasDTO).toList();
     }
 
-    public List<Url_aliasDTO> buscarPorAlias(String alias) {
-        char[] cadena = alias.toCharArray();
 
-        List<Url_alias> urls = gestorRepositorios.getUrlAliasRepository().findAll().stream()
-                .map(e -> {
-                    int iguales = 0;
-                    List<Url_alias> coincidencias = new ArrayList<>(List.of());
-                    for (int i = 0; i < cadena.length; i++) {
-                        if (cadena[i] == e.getAlias().charAt(i)) {
-                            iguales++;
+    public void modificarAlias( String aliasNuevo, String aliasViejo) {
+        Url_alias urlAlias = findById(idAlias(aliasViejo));
 
-                        }
-
-                    }
-
-                    if (iguales > 1 && iguales <= cadena.length) {
-                        return e;
-                    }
-
-                    return null;
-                }).toList();
-        return urls.stream().map(gestorRepositorios::getUrlAliasDTO).toList();
-    }
-
-    public void modificarAlias(Url_aliasDTO urlAliasDTO, int id) {
-        Url_alias urlAlias = findById(id);
-        urlAlias.setAlias(urlAliasDTO.getAlias());
+        urlAlias.setAlias(aliasNuevo);
         update(urlAlias);
 
 

@@ -51,6 +51,7 @@ public class GestorRepositorios {
         dto.setAlias(url_alias.getAlias());
         dto.setUrlId(url_alias.getUrl().getId_url());
         dto.setCantidad_uso(url_alias.getCantidad_uso());
+        dto.setAliasId(url_alias.getId());
         return dto;
     }
 }
